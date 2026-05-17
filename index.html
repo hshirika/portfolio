@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shirika Hariram | Urban Mobility & Spatial Analytics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --town-green: #e2f0d9;       
+            --wood-brown: #5d4037;       
+            --text-muted: #8d6e63;       
+            --card-bg: #ffffff;          
+            --quest-yellow: #fff176;     
+            --completed-blue: #b5e2fa;   
+            --inventory-purple: #f0e6ff; 
+            --edu-orange: #ffe0b2;
+            --project-pink: #ffcdd2;
+            --pastel-red: #f3b0a3;
+            --pastel-green: #b2d8b2;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--town-green);
+            font-family: 'Quicksand', sans-serif;
+            color: var(--wood-brown);
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        header, section {
+            width: 100%;
+            max-width: 750px;
+            margin-bottom: 40px;
+            animation: fadeInPage 0.6s ease-out;
+        }
+
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 🏡 HERO CENTER */
+        header {
+            text-align: center;
+            background: var(--card-bg);
+            border: 4px solid var(--wood-brown);
+            border-radius: 30px;
+            padding: 40px 20px;
+            box-shadow: 0 8px 0px rgba(93, 64, 55, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        header:hover {
+            box-shadow: 0 12px 0px rgba(93, 64, 55, 0.2);
+        }
+
+        h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.4rem;
+            margin-bottom: 8px;
+        }
+
+        .guild-title {
+            font-weight: bold; 
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .summary-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: left;
+            background: #faf6f0;
+            padding: 20px;
+            border-radius: 20px;
+            border: 2px dashed var(--wood-brown);
+        }
+
+        .contact-bar {
+            font-size: 0.9rem;
+            font-weight: bold;
+            background: var(--inventory-purple);
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 12px;
+            border: 2px solid var(--wood-brown);
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .contact-bar:hover {
+            transform: scale(1.08) rotate(-1deg);
+            background-color: var(--quest-yellow);
+            cursor: pointer;
+        }
+
+        /* 🗺️ SECTION HEADER DESIGN WITH INTEGRATED ICONS */
+        .section-header-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        h2.section-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.5rem;
+            background: var(--card-bg);
+            border: 3px solid var(--wood-brown);
+            border-radius: 15px;
+            padding: 8px 22px;
+            box-shadow: 4px 4px 0px var(--wood-brown);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-icon {
+            width: 32px;
+            height: 32px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        /* 📋 QUEST CARDS WITH BOUNCE ANIMATION */
+        .town-card {
+            background-color: var(--card-bg);
+            border: 4px solid var(--wood-brown);
+            border-radius: 24px;
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            box-shadow: 0 8px 0px rgba(93, 64, 55, 0.15);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .town-card:hover {
+            transform: translateY(-6px) scale(1.015);
+            box-shadow: 0 14px 0px rgba(93, 64, 55, 0.12);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: -15px;
+            left: 25px;
+            border: 3px solid var(--wood-brown);
+            border-radius: 12px;
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .badge-current { 
+            background-color: var(--quest-yellow); 
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+        
+        @keyframes pulseGlow {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 241, 118, 0.7); }
+            50% { transform: scale(1.03); box-shadow: 0 0 8px 3px rgba(255, 241, 118, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 241, 118, 0); }
+        }
+
+        .badge-completed { background-color: var(--completed-blue); }
+        .badge-edu { background-color: var(--edu-orange); }
+        .badge-project { background-color: var(--project-pink); }
+
+        .mini-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 1px solid var(--wood-brown);
+        }
+        .dot-active { background: var(--pastel-red); }
+        .dot-complete { background: var(--pastel-green); }
+
+        .job-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.35rem;
+            margin-top: 10px;
+        }
+
+        .company-info {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .quest-details {
+            list-style-type: "✨ ";
+            padding-left: 20px;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .quest-details li {
+            margin-bottom: 8px;
+            transition: transform 0.2s ease;
+        }
+        
+        .town-card:hover .quest-details li:hover {
+            transform: translateX(6px);
+            color: #000;
+        }
+
+        /* 🔗 DYNAMIC LINK BUTTONS */
+        .quest-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .quest-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--wood-brown);
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 8px 16px;
+            border: 2px solid var(--wood-brown);
+            border-radius: 12px;
+            box-shadow: 2px 2px 0px var(--wood-brown);
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .btn-linkedin { background-color: var(--completed-blue); }
+        .btn-web { background-color: var(--inventory-purple); }
+
+        .quest-btn:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 4px 4px 0px var(--wood-brown);
+            background-color: var(--quest-yellow);
+        }
+
+        /* 🎒 INVENTORY SUBSECTIONS */
+        .inventory-box {
+            background: var(--card-bg);
+            border: 4px solid var(--wood-brown);
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 8px 0px rgba(93, 64, 55, 0.15);
+            margin-bottom: 25px;
+        }
+
+        .inventory-box h3 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.15rem;
+            margin-bottom: 15px;
+            border-bottom: 2px dashed var(--town-green);
+            padding-bottom: 5px;
+        }
+
+        .inventory-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .inventory-item {
+            background-color: var(--inventory-purple);
+            border: 2px solid var(--wood-brown);
+            border-radius: 12px;
+            padding: 6px 14px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            box-shadow: 2px 2px 0px rgba(93, 64, 55, 0.1);
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .inventory-item:hover {
+            transform: scale(1.1) translateY(-2px) rotate(1deg);
+            background-color: var(--quest-yellow);
+            box-shadow: 4px 4px 0px var(--wood-brown);
+            cursor: pointer;
+        }
+
+        .item-icon {
+            font-size: 1.1rem;
+        }
+
+        .guild-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .guild-card {
+            background: #fffdf9;
+            border: 2px solid var(--wood-brown);
+            padding: 12px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+        
+        .guild-card:hover {
+            transform: scale(1.03);
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Shirika Hariram</h1>
+        <p class="guild-title">Level 5 Urban Planner & Data Mobility Mage 🏙️</p>
+        
+        <div class="summary-text">
+            Detail-oriented and results-driven Urban Planning graduate on the pathway to Registered Professional Planner (RPP) designation. Experienced in supporting municipal transit, traffic engineering, and active transportation infrastructure across the GTA. Proven track record in blending traditional transit planning with modern data analytics to build resilient, highly accessible, and livable communities.
+        </div>
+        
+        <div class="contact-bar">
+            📬 Guild Link: hshirika@gmail.com | 📱 (647)-573-3224
+        </div>
+    </header>
+
+    <section>
+        <div class="section-header-container">
+            <h2 class="section-title">
+                <svg class="header-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 2L3 13H29L16 2Z" fill="#b2d8b2" stroke="#5d4037" stroke-width="2" stroke-linejoin="round"/>
+                    <rect x="6" y="13" width="20" height="16" fill="#ffe0b2" stroke="#5d4037" stroke-width="2"/>
+                    <rect x="13" y="21" width="6" height="8" fill="#f3b0a3" stroke="#5d4037" stroke-width="2"/>
+                    <circle cx="16" cy="8" r="2" fill="#ffffff" stroke="#5d4037" stroke-width="1.5"/>
+                </svg>
+                Active Quest Log
+            </h2>
+        </div>
+
+        <div class="town-card">
+            <div class="card-badge badge-current"><span class="mini-dot dot-active"></span> ⭐ FEATURED QUEST</div>
+            <h3 class="job-title">Technical Trainee — Cycling & Pedestrian Projects (C&PP) Unit</h3>
+            <p class="company-info">City of Toronto, Transportation Services | Sept 2025 - Dec 2025</p>
+            <ul class="quest-details">
+                <li>Collaborating with engineering staff to draft precise CAD drawings for line markings, barriers, bike corrals, and wayfinding signage.</li>
+                <li>Contributing to high-profile ActiveTO installations and priority infrastructure projects under the Cycling Network Plan.</li>
+                <li>Co-drafting foundational policy documents and technical content for the upcoming On-Street Bikeway Design Guidelines.</li>
+            </ul>
+            <div class="quest-actions">
+                <a href="https://www.linkedin.com/feed/update/urn:li:activity:7383971084381085697/?utm_source=share&utm_medium=member_desktop&rcm=ACoAADq29RoBY96BqTvSlJ_YMPd0V4DfW_mm6a4" target="_blank" class="quest-btn btn-linkedin">
+                    <span>🗺️ Review Cycling Network Expansion [DLC]</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="town-card">
+            <div class="card-badge badge-completed"><span class="mini-dot dot-complete"></span> QUEST COMPLETED</div>
+            <h3 class="job-title">Transportation / Traffic Student</h3>
+            <p class="company-info">Region of Peel, Traffic Engineering | May 2025 - Aug 2025</p>
+            <ul class="quest-details">
+                <li>Partnered with engineers and planners to assess, model, and implement traffic calming and active transportation initiatives.</li>
+                <li>Collected, processed, and analyzed vehicular volumes, speed trends, travel times, and collision data using GIS, advanced Excel, and Miovision.</li>
+                <li>Utilized Python scripting to automate the extraction, cleaning, and formatting of massive, raw traffic volume datasets to completely eliminate manual errors.</li>
+            </ul>
+        </div>
+
+        <div class="town-card">
+            <div class="card-badge badge-completed"><span class="mini-dot dot-complete"></span> QUEST COMPLETED</div>
+            <h3 class="job-title">Transit and Scheduling Specialist (Planning, Scheduling & Operating Systems)</h3>
+            <p class="company-info">The City of Guelph | Jan 2024 - Apr 2024</p>
+            <ul class="quest-details">
+                <li>Optimized municipal transit routes by analyzing operator feedback, resulting in measurable schedule reliability gains.</li>
+                <li>Managed and audited spatial transit data within Trapeze software to ensure absolute accuracy for route schedules.</li>
+                <li>Executed batch attribute updates and data validation protocols to enforce corporate data governance standards across enterprise platforms.</li>
+            </ul>
+        </div>
+
+        <div class="town-card">
+            <div class="card-badge badge-completed"><span class="mini-dot dot-complete"></span> QUEST COMPLETED</div>
+            <h3 class="job-title">Map Designer</h3>
+            <p class="company-info">Mappedin | Apr 2023 - Aug 2023</p>
+            <ul class="quest-details">
+                <li>Digitized complex architectural floorplans into simplified, user-friendly indoor maps for enterprise-scale venues.</li>
+                <li>Conducted detailed Quality Assurance (QA) reviews checking geometry, labeling, and spatial accuracy.</li>
+                <li>Collaborated closely with Project Managers and internal teams to support timelines and deliver high-quality outputs.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-header-container">
+            <h2 class="section-title">
+                <svg class="header-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 6C4 4.89543 4.89543 4 6 4H26C27.1046 4 28 4.89543 28 6V26C28 27.1046 27.1046 28 26 28H6C4.89543 28 4 27.1046 4 26V6Z" fill="#b5e2fa" stroke="#5d4037" stroke-width="2"/>
+                    <path d="M9 10H23M9 16H19M9 22H23" stroke="#5d4037" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                Blueprints & Master Plans
+            </h2>
+        </div>
+        
+        <div class="town-card">
+            <div class="card-badge badge-project">📐 BLUEPRINT SPEC</div>
+            <h3 class="job-title">Stormwater in the Blue Mountains: Beaver River Outfall Proposal</h3>
+            <p class="company-info">Academic Proposal | Town of The Blue Mountains & University of Waterloo</p>
+            <ul class="quest-details">
+                <li>Designed an integrated stormwater management plan utilizing perforated pipes, dry swales, and check dams to protect local cold-water ecosystems.</li>
+                <li>Conducted an extensive geospatial watershed analysis in ArcGIS Pro using Digital Elevation Models (DEM) data to determine catch basin runoff catchment areas.</li>
+                <li>Calculated travel times based on drainage pipe length and flow velocity to model existing vs. proposed drainage pipe orientations.</li>
+            </ul>
+            <div class="quest-actions">
+                <a href="https://www.linkedin.com/feed/update/urn:li:activity:7441899289926205441/?utm_source=share&utm_medium=member_desktop&rcm=ACoAADq29RoBY96BqTvSlJ_YMPd0V4DfW_mm6a4" target="_blank" class="quest-btn btn-linkedin">
+                    <span>🏆 Inspect Beaver River Showcase [DLC]</span>
+                </a>
+                <a href="https://uwaterloo.ca/environment/undergraduate/current-students/environment-capstone-symposium" target="_blank" class="quest-btn btn-web">
+                    <span>🏛️ Access Blue Mountains Campaign [Expansion]</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-header-container">
+            <h2 class="section-title">
+                <svg class="header-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 6H24C25.1046 6 26 6.89543 26 8V26C26 26.5523 25.5523 27 25 27H5C4.44772 27 4 26.5523 4 26V8C4 6.89543 4.89543 6 6 6Z" fill="#ffcdd2" stroke="#5d4037" stroke-width="2"/>
+                    <path d="M8 6V27" stroke="#5d4037" stroke-width="2"/>
+                    <path d="M13 11H21M13 16H21" stroke="#5d4037" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                Academia & Training Grounds
+            </h2>
+        </div>
+
+        <div class="town-card">
+            <div class="card-badge badge-edu">🎓 DEGREE ARCHIVE</div>
+            <h3 class="job-title">Bachelor of Environmental Studies (Honours Urban and Regional Planning)</h3>
+            <p class="company-info">University of Waterloo | Sept 2021 - June 2026</p>
+            <ul class="quest-details">
+                <li><strong>Specializations:</strong> Land Development & Environmental Planning and Management.</li>
+                <li><strong>Minor:</strong> Legal Studies.</li>
+            </ul>
+        </div>
+
+        <div class="town-card">
+            <div class="card-badge badge-edu">📜 SCROLL UNLOCKED</div>
+            <h3 class="job-title">Masters Certificate: Sustainable Transportation</h3>
+            <p class="company-info">University of Washington | Planning and Livable Communities Program</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-header-container">
+            <h2 class="section-title">
+                <svg class="header-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="5" width="22" height="22" rx="6" fill="#f0e6ff" stroke="#5d4037" stroke-width="2"/>
+                    <path d="M11 11H21V21H11V11Z" fill="#fff176" stroke="#5d4037" stroke-width="2" stroke-linejoin="round"/>
+                </svg>
+                Planner's Inventory Bag
+            </h2>
+        </div>
+
+        <div class="inventory-box">
+            <h3>🗺️ Equipped Geospatial & Mapping Tools</h3>
+            <div class="inventory-grid">
+                <div class="inventory-item"><span class="item-icon">🧭</span> ArcGIS Pro / Desktop</div>
+                <div class="inventory-item"><span class="item-icon">🐬</span> PostGIS Spatial Queries</div>
+                <div class="inventory-item"><span class="item-icon">🗺️</span> QGIS Foundation</div>
+                <div class="inventory-item"><span class="item-icon">📐</span> AutoCAD / MicroStation</div>
+                <div class="inventory-item"><span class="item-icon">🗺️</span> BIM to GIS Interoperability</div>
+                <div class="inventory-item"><span class="item-icon">📡</span> Remote Sensing & Decision Support</div>
+                <div class="inventory-item"><span class="item-icon">🚌</span> Trapeze Software</div>
+                <div class="inventory-item"><span class="item-icon">🔍</span> Miovision Traffic Software</div>
+            </div>
+        </div>
+
+        <div class="inventory-box">
+            <h3>🗄️ Coding & Data Pipeline Mastery</h3>
+            <div class="inventory-grid">
+                <div class="inventory-item"><span class="item-icon">💻</span> Python Case Study: Cryptography</div>
+                <div class="inventory-item"><span class="item-icon">📊</span> Power BI Insights</div>
+                <div class="inventory-item"><span class="item-icon">⚡</span> SQL Fundamentals for Data Analysts</div>
+                <div class="inventory-item"><span class="item-icon">🔄</span> Automated ETL Data Pipelines</div>
+                <div class="inventory-item"><span class="item-icon">🤖</span> Introduction to Generative AI</div>
+            </div>
+        </div>
+
+        <div class="inventory-box">
+            <h3>📜 Unlocked Class Buffs & Certifications</h3>
+            <div class="inventory-grid">
+                <div class="inventory-item"><span class="item-icon">🛑</span> OTM Book 7 Work Zone Certified</div>
+                <div class="inventory-item"><span class="item-icon">⚡</span> Agile Project Management & Scrum Frameworks</div>
+                <div class="inventory-item"><span class="item-icon">🏙️</span> Sustainable Cities Specialization (Johns Hopkins)</div>
+                <div class="inventory-item"><span class="item-icon">🚄</span> Metro Rail Systems and Construction Planning</div>
+                <div class="inventory-item"><span class="item-icon">🌐</span> Smart Cities Infrastructure Management</div>
+            </div>
+        </div>
+
+        <div class="inventory-box">
+            <h3>🗣️ Passive Language Skills</h3>
+            <div class="inventory-grid" style="margin-bottom: 20px;">
+                <div class="inventory-item">🇨🇦 English (Fluent)</div>
+                <div class="inventory-item">🇫🇷 French Professional Proficiency</div>
+                <div class="inventory-item">🇩🇪 German Professional Proficiency</div>
+                <div class="inventory-item">🇪🇸 Spanish Professional Proficiency</div>
+            </div>
+
+            <h3>🤝 Professional Guild Memberships</h3>
+            <div class="guild-list">
+                <div class="guild-card">🍁 Canadian Institute of Planners (Student Member)</div>
+                <div class="guild-card">🚇 Women's Transportation Seminar</div>
+                <div class="guild-card">🚗 Transportation Association of Canada</div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
